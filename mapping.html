@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Mapbox</title>
+		<link rel="icon" type="image/x-icon" href="favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+		<script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
+		<link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Cardo&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="style.css">
+	</head>
+
+	<body>
+
+		<div>
+			<article>
+				<hgroup>
+					<h1>Activities near Hunter College</h1>
+					<h3>Places to go during long breaks between classes.</h3>
+				</hgroup>
+			</article>
+		</div>
+
+		<style>
+		.mapboxgl-popup {
+			max-width: 400px;
+			background-color: #045757;
+			font: 12px/20px 'Cardo', serif;
+			text-align: center;
+			}
+		</style>
+
+	<!-- style for map -->
+	<div id='map' style=' width: 60%; height: 80em; left: 20%;'></div>
+	<script>
+  	mapboxgl.accessToken = 'pk.eyJ1IjoibWFyY3BlcmV6NjQiLCJhIjoiY2trcmo3Njk5MGJtczJ2bmlyMnE0eHExdyJ9.CcZWWrnsimrYiMKD-vOHuw';
+  	var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/navigation-night-v1',
+		center: [-73.9645,40.7678], //location
+		zoom: 14 //zoom duh
+  	});
+
+
+		map.on('load', function () {
+			map.loadImage(
+				'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+				// Add an image to use as a custom marker
+				function (error, image) {
+					if (error) throw error;
+					map.addImage('custom-marker', image);
+
+					map.addSource('places', {
+						'type': 'geojson',
+						'data': {
+							'type': 'FeatureCollection',
+							'features': [
+								{
+									'type': 'Feature',
+									'properties': {
+										'description':
+										'<strong>Park Avenue Armory</strong><p>Historic armory repurposed for artistic programming. <br><a href="https://www.victoriangardensnyc.com/" target="_blank">Official Site & Information</a></p>',
+										'icon': 'theater'
+									},
+									'geometry': {
+										'type': 'Point',
+										'coordinates': [-73.9655, 40.7672]
+									}
+								},
+								{
+									'type': 'Feature',
+									'properties': {
+										'description':
+										'<strong>Hunter College</strong><p>Hunter College<br><a href="https://hunter.cuny.edu/" target="_blank">Official Site & Information</a></p>',
+										'icon': 'college'
+									},
+									'geometry': {
+										'type': 'Point',
+										'coordinates': [-73.9653, 40.7683]
+									}
+								},
+								{
+									'type': 'Feature',
+									'properties': {
+										'description':
+										'<strong>Bethesda Terrace</strong><p>Lakeside Terrace in an open area. <br><a href="https://www.centralparknyc.org/locations/bethesda-terrace" target="_blank">Official Site & Information</a></p>',
+										'icon': 'attraction'
+									},
+									'geometry': {
+										'type': 'Point',
+										'coordinates': [-73.9721619, 40.7740892]
+									}
+								},
+								{
+									'type': 'Feature',
+									'properties': {
+										'description':
+										'<strong>Asia Society And Museum</strong><p>Museum based around Asian culture and art. <br><a href="https://asiasociety.org/museum" target="_blank">Official Site & Information</a></p>',
+										'icon': 'museum'
+									},
+									'geometry': {
+										'type': 'Point',
+										'coordinates': [-73.9643, 40.7698]
+									}
+								},
+								{
+									'type': 'Feature',
+									'properties': {
+										'description':
+										'<strong>Victorian Gardens Amusement Park</strong><p>Amusement Park within Central Park that opens in the summertime.<br><a href="https://www.victoriangardensnyc.com/" target="_blank">Official Site & Information</a></p>',
+										'icon': 'amusement-park'
+									},
+									'geometry': {
+										'type': 'Point',
+										'coordinates': [-73.9766603, 40.7677794]
+									}
+								},
+								{
+									'type': 'Feature',
+									'properties': {
+										'description':
+										'<strong>The Frick Collection</strong><p>Art Collection<br><a href="https://www.frick.org/" target="_blank">Official Site & Information</a></p>',
+										'icon': 'art-gallery'
+									},
+									'geometry': {
+										'type': 'Point',
+										'coordinates': [-73.9672, 40.7713]
+									}
+								},
+								{
+									'type': 'Feature',
+									'properties': {
+										'description':
+										'<strong>The MET</strong><p>Art Museum<br><a href="https://www.metmuseum.org/" target="_blank">Official Site & Information</a></p>',
+										'icon': 'museum'
+									},
+									'geometry': {
+										'type': 'Point',
+										'coordinates': [-73.9634, 40.7794]
+									}
+								},
+								{
+									'type': 'Feature',
+									'properties': {
+										'description':
+										'<strong>Central Park Zoo</strong><p>Manhattan Zoo <br><a href="https://centralparkzoo.com/" target="_blank">Official Site & Information</a></p>',
+										'icon': 'zoo'
+									},
+									'geometry': {
+										'type': 'Point',
+										'coordinates': [-73.9717, 40.7677]
+									}
+								}
+							]
+						}
+					});
+
+					// Add a layer showing the places.
+					map.addLayer({
+						'id': 'places',
+						'type': 'symbol',
+						'source': 'places',
+						'layout': {
+							'icon-image': '{icon}-15',
+							'icon-allow-overlap': true
+						}
+					});
+				}
+			);
+
+			// Create a popup, but don't add it to the map yet.
+			var popup = new mapboxgl.Popup({
+				closeButton: false,
+				closeOnClick: false
+			});
+
+			// When a click event occurs on a feature in the places layer, open a popup at the
+			// location of the feature, with description HTML from its properties.
+			map.on('click', 'places', function(e) {
+					var coordinates = e.features[0].geometry.coordinates.slice();
+					var description = e.features[0].properties.description;
+
+					// Ensure that if the map is zoomed out such that multiple
+					// copies of the feature are visible, the popup appears
+					// over the copy being pointed to.
+					while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+							coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+					}
+
+					new mapboxgl.Popup()
+							.setLngLat(coordinates)
+							.setHTML(description)
+							.addTo(map);
+			});
+
+			// Change the cursor to a pointer when the mouse is over the places layer.
+			map.on('mouseenter', 'places', function() {
+					map.getCanvas().style.cursor = 'pointer';
+			});
+
+			// Change it back to a pointer when it leaves.
+			map.on('mouseleave', 'places', function() {
+					map.getCanvas().style.cursor = '';
+			});
+		});
+
+		//Controls
+		map.addControl(new mapboxgl.FullscreenControl());
+		map.addControl(new mapboxgl.NavigationControl());
+	</script>
+
+
+
+
+	</body>
+
+</html>

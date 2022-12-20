@@ -1,0 +1,41 @@
+body {
+  display: relative;
+  justify-content: center;
+  align-items: center;
+  background-color: #222222;
+}
+
+article {
+  font-family: 'Cardo', serif;
+  color: #E4E4E4;
+  text-align: center;
+  padding: .03em;
+}
+
+hgroup {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.home {
+  text-align: right;
+  padding: 0 5em;
+}
+
+.footer {
+  font-size: 18px;
+}
+
+a {
+  color: #045757;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+li {
+  text-decoration: none;
+}
+
+a:hover, a:focus, a:active {
+  text-decoration: underline;
+  color: #044343;
+}
